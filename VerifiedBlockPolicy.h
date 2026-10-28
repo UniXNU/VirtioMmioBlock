@@ -8,7 +8,12 @@ struct NativeVerifiedBlockPolicy {
 };
 static_assert(sizeof(NativeVerifiedBlockPolicy) == 16 && alignof(NativeVerifiedBlockPolicy) == 8);
 extern "C" {
+#if defined(NATIVE_VERIFIED_POLICY_HANDOFF) && NATIVE_VERIFIED_POLICY_HANDOFF
+extern NativeVerifiedBlockPolicy verified_root_policies[];
+extern uint64_t verified_root_policy_count;
+#else
 extern const NativeVerifiedBlockPolicy verified_root_policies[];
 extern const uint64_t verified_root_policy_count;
+#endif
 }
 #endif
